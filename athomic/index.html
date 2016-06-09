@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+    <title>Athomic</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="libs/estilo.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/jquery.mobile-1.4.5.min.css">
+    <script type="application/javascript" src="libs/FileSaver.min.js"></script>
+    <script type="text/javascript" src="libs/jquery.min.js" defer></script>
+    <script type="text/javascript" src="libs/jquery.mobile.min.js" defer></script>
+    <script type="text/javascript" src="libs/app.min.js" defer></script>
+    <script type="text/javascript" src="libs/openDB.min.js" defer></script>
+    <script type="text/javascript" src="libs/jspdf.js" defer></script>
+    <script src="libs/jspdf.plugin.standard_fonts_metrics.js" defer></script>
+    <script type="text/javascript" src="libs/MyPdf.min.js" defer></script>
+</head>
+<body>
+    <div data-role="page" data-theme="a" id="app">
+        <div data-role="header" class="ui-shadow color cabecera">
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" id="setup" class="color">
+                            <svg width="48" height="48">
+                                <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="1" fill="#ffdf4a" />
+                                <path d="M10 18 L38 18" stroke="#898989" stroke-width="3" fill="none"/>
+                                <path d="M10 24 L38 24" stroke="#898989" stroke-width="3" fill="none"/>
+                                <path d="M10 30 L38 30" stroke="#898989" stroke-width="3" fill="none"/>
+                            </svg>
+                        </a></li>
+                        <li><a href="#" id="import" class="color">
+                            <svg width="48" height="48">
+                                <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="1" fill="#ffdf4a" />
+                                <path d="M16 16 L10 16 L10 36 L38 36 L38 16 L32 16" stroke="#898989" stroke-width="3" fill="none"/>
+                                <path d="M16 28 L32 28" stroke="#898989" stroke-width="1" fill="none"/>
+                                <path d="M16 31 L32 31" stroke="#898989" stroke-width="1" fill="none"/>
+                            </svg>
+                        </a></li>
+                        <li><a href="#" id="export" class="color">
+                            <svg width="48" height="48">
+                                <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="1" fill="#ffdf4a" />
+                                <path d="M16 16 L10 16 L10 36 L38 36 L38 16 L32 16" stroke="#898989" stroke-width="3" fill="none"/>
+                                <path d="M20 22 Q24 12 34 10" stroke="#898989" stroke-width="2" fill="none"/>
+                                <path d="M16 31 L32 31" stroke="#898989" stroke-width="1" fill="none"/>
+                            </svg>
+                        </a></li>
+                        <li><a href="#" id="reload" class="color">
+                            <svg height="48" width="48">
+                                <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="1" fill="#ffdf4a" />
+                                <text x="4" y="26" font-size="9" fill="#898989">AThomiC</text>
+                            </svg></a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <div data-role="main" id="principal" class="ui-content">
+                <form class="ui-filterable">
+                    <input id="myFilter" data-type="search" placeholder="Search...">
+                </form>
+                <ul id="lista" data-role="listview" data-filter="true" data-input="#myFilter" data-inset="true">
+                </ul>
+        </div>
+      <div data-role="popup" data-theme="o" data-overlay-theme="a" id="nuevo_cliente" class="ui-content color">
+            <h2 id="titulo_nuevo">New Client</h2>
+            <form id="form_datos" name="formo">
+                    <input class="myconf" id="id_cif" type="text" name="cif" placeholder="CIF *" autofocus>
+                    <input class="myconf" id="id_nombre" type="text" name="nombre" placeholder="Name *">
+                    <input class="myconf" id="id_telefono" type="tel" name="telefono" placeholder="Phone *">
+                    <input class="myconf" id="id_email" type="email" name="email" placeholder="Email">
+                    <input class="myconf" id="id_url" type="url" name="url" placeholder="Web">
+                    <input class="myconf" id="id_domicilio" type="text" name="domicilio" placeholder="Address">
+                    <input class="myconf" id="id_cp" type="text" name="cp" placeholder="Postal Code">
+                    <input class="myconf" id="id_poblacion" type="text" name="poblacion" placeholder="City">
+                    <input class="myconf" id="id_pais" type="text" name="pais" placeholder="Country">
+            </form>
+            <a href="#" data-rel="" id="btn_save" class="ui-btn ui-icon-check ui-btn-icon-left ui-btn-inline ui-corner-all ui-shadow color">Save</a>
+            <a href="#" data-rel="back" id="btn_cancel" class="ui-btn ui-icon-delete ui-btn-icon-left ui-btn-inline ui-corner-all ui-shadow color">Cancel</a>
+        </div>
+        <div data-role="popup" data-theme="o" data-overlay-theme="a" id="nuevobill" class="ui-content color">
+            <div class="ui-content datos color">
+                <h2 id="titulobill">Bill</h2>
+
+                <p><span>Nº Bill</span><span id="numerobill" class="margen"></span></p>
+                <p><span>Date</span><span id="fechabill" class="margen"></span></p>
+                <p class="datos"></p>
+
+                <form id="form_bill" name="formobill">
+                    <label id="labelconcepto" for="concepto">Concept</label>
+                    <input id="concepto" type="text" name="concepto" placeholder="Concept...">
+                    <label for="cantidad">Items</label>
+                    <input id="cantidad" type="number" name="cantidad" placeholder="Items">
+                    <label for="precio">Price</label>
+                    <input id="precio" type="number" name="precio" placeholder="Unit price">
+                </form>
+                <p id="texto_concepto" class="red"></p>
+            </div>
+            <a href="#" data-rel="" id="btn_save_bill" class="ui-btn ui-icon-check ui-btn-icon-left ui-btn-inline ui-corner-all ui-shadow color">Bill</a>
+            <a href="#" data-rel="" id="btn_next_bill" class="ui-btn ui-icon-plus ui-btn-icon-left ui-btn-inline ui-corner-all ui-shadow color">More</a>
+        </div>
+        <div data-role="popup" data-theme="o" data-overlay-theme="a" id="readfile" class="ui-content color">
+            <div class="ui-content datos color">
+                <h2 id="titulofile">Import Database</h2>
+                <p class="datos"></p>
+
+                <form id="formfile" name="formofile">
+                    <input id="selectfile" type="file" class="color">
+                </form>
+            </div>
+        </div>
+        <div id="id_btn_new" class="btn_new">
+            <a href="#" id="id_nuevo_cliente" class="btn">
+                <svg width="48" height="48">
+                    <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="1" fill="#ffdf4a" />
+                    <path d="M13 24 L35 24" stroke="#898989" stroke-width="4" fill="none"/>
+                    <path d="M24 13 L24 35" stroke="#898989" stroke-width="4" fill="none"/>
+                </svg>
+            </a>
+        </div>
+        <div id="status_bar" class="status ui-body-g ui-corner-all ui-shadow">
+            <p id="status_msg" class="status_texto"></p>
+        </div>
+        <div data-role="popup" id="popup_delete" class="ui-content color">
+            <h3 id="deltitulo">Deleting...</h3>
+            <a href="#" id="btn_popup_delete" data-rel="back" class="ui-btn ui-corner-all ui-icon-alert ui-btn-icon-left ui-shadow color">Are you sure?</a>
+        </div>
+        <div data-role="panel" data-theme="o" data-display="overlay" id="panel" class="ui-content color">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext ui-btn-right color"></a>
+            <h2 id="panel_titulo">Athomic</h2>
+             <div id="data" class="data">
+                   <ul data-role="listview" id="datapanel" data-inset="true" class="color">
+                   </ul>
+                   <a href="#" data-rel="" id="deleteID" class="ui-btn ui-icon-delete ui-btn-icon-left ui-corner-all ui-shadow color">Delete</a>
+             </div>
+             <div class="btnNew">
+                <a href="http://www.garbbos.com"><svg height="48" width="48">
+                     <circle cx="24" cy="24" r="22" stroke="#898989" stroke-width="2" fill="#ffdf4a" />
+                     <text x="0" y="30" font-size="12" fill="#898989" transform="rotate(-10)">GarbboS</text>
+                 </svg></a>
+                 <p>
+                     &copy;2016 Garbbos.com
+                 </p>
+              </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+body{
+      background-color: #efefef;
+      color: #232323;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+}
+a{
+    text-decoration: none;
+    color: #232323;
+    background-color: transparent;
+}
+a:hover{
+    cursor: pointer;
+}
+
+.svg path{
+    transition: all 1s;
+}
+.marco{
+    margin-top: 8px;
+    flex: 2 0 120px;
+}
+.titulo{
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 1.4em;
+    font-style: italic;
+    font-weight: bolder;
+    text-shadow:  0 2px 2px #9b9b9b;
+}
+.titulo:hover{
+    color: #ff8c00;
+    background-color: transparent;
+}
+
+.links{
+    background-color: #575757;
+    background: linear-gradient(#575757, #131313);
+    border-bottom: solid 2px #131313;
+	color: #ffffff;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+}
+.menu{
+    flex: 1 0 40px;
+
+}
+.icon{
+    flex: 0 0 40px;
+}
+
+svg:hover line{
+    stroke: #ff8c00;
+}
+svg:hover rect{
+    stroke: #ff8c00;
+}
+svg:hover path{
+    stroke: #ff8c00;
+}
+.more:hover circle{
+    fill: #696969;
+}
+.articulo{
+    border: solid 2px #575757;
+    border-radius: 4px;
+    position: fixed;
+    width: 80%;
+    top: 30%;
+    left: 10%;
+    z-index: 30;
+}
+.popup{
+    opacity: 0;
+    transition: opacity .2s;
+}
+.cabecera{
+    background-color: #ff8c00;
+    background: linear-gradient(#ff8c00, #ff6a22);
+    color: #575757;
+    display: flex;
+    flex-flow: row wrap;
+}
+.btn_close{
+    flex: 0 0 26px;
+}
+.btn_close svg:hover rect{
+    stroke: #252525;
+}
+.btn_close svg:hover line{
+    stroke: #252525;
+}
+.title{
+    flex: 10 1 20px;
+}
+.mytitle{
+    width: 40px;
+}
+.mytitle:focus{
+    width: 160px;
+    transition: width .4s;
+}
+.texto{
+    background-color: #efefef;
+    background: linear-gradient(#efefef, #cecece);
+    color: #575757;
+    font-weight: normal;
+    padding: 1px 0 1px 0;
+}
+textarea{
+    box-sizing: border-box;
+    height: 240px;
+    width: 100%;
+}
+.popupTitle{
+    margin-left: 4%;
+}
+
+.color{
+    background: #ff8c00;
+    color: #696969;
+}
+.cabecera{
+    background-color: #ff8c00;
+    background: linear-gradient(#ff8c00, #ff6a22);
+    color: #232323;
+    border-bottom: solid 1px #131313;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 2px;
+    margin: 0;
+}
+
+.statusbar{
+    position: fixed;
+    bottom: 5%;
+    display: none;
+}
