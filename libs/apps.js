@@ -10,8 +10,7 @@ function events() {
     document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
-            nuevo.hide(true);
-            back.hide(true);
+            nuevo.off();
             log("Event 27 - Escape -");
         }
     };
@@ -19,14 +18,11 @@ function events() {
         nuevo.off();
     };
     write.onclick = function() {
-
-
         nuevo.on();
     };
 }
 
 window.onload = function() {
-
     //To detect escape button
 
     events();
